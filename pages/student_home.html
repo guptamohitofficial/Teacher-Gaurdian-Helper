@@ -1,0 +1,279 @@
+{% load static %}
+<!DOCTYPE html>
+
+<head>
+  
+  <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Muli:300,400,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'fonts/icomoon/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/jquery-ui.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/jquery.fancybox.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-datepicker.css' %}">
+    <link rel="stylesheet" href="{% static 'fonts/flaticon/font/flaticon.css' %}">
+    <link rel="stylesheet" href="{% static 'css/aos.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style_page.css' %}">
+</head>
+<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
+  
+  <div class="site-wrap">
+
+    <div class="site-mobile-menu site-navbar-target">
+      <div class="site-mobile-menu-header">
+        <div class="site-mobile-menu-close mt-3">
+          <span class="icon-close2 js-menu-toggle"></span>
+        </div>
+      </div>
+      <div class="site-mobile-menu-body"></div>
+    </div>
+   
+    
+    </div>
+
+  {% if result %}
+    <title>{{result.1}} {{result.2}}</title>
+  {% else %}
+    <title>Home Page</title>
+  {% endif %}
+    <header class="site-navbar py-4 js-sticky-header site-navbar-target" role="banner">
+      
+      <div class="container-fluid">
+        <div class="d-flex align-items-center">
+          <div class="site-logo mr-auto w-25"><a href="home">Truba TG Diary</a></div>
+
+          <div class="mx-auto text-center">
+            <nav class="site-navigation position-relative text-right" role="navigation">
+              <ul class="site-menu main-menu js-clone-nav mx-auto d-none d-lg-block  m-0 p-0">
+                {% if result %}
+                <li style="padding-left:250px;"><a href="#home-section" class="nav-link">{{result.1}}</a></li>
+                <li><a href="logout" class="nav-link">Logout</a></li>
+                {% else %}
+                <li style="padding-left:250px;"><a href="#home-section" class="nav-link">Home</a></li>
+                <li><a href="about_us" class="nav-link">About</a></li>
+                {% endif %}
+                <!--li><a href="signup" class="nav-link">Sign Up</a></li-->
+              </ul>
+            </nav>
+          </div>
+
+          <div class="ml-auto w-25">
+            <nav class="site-navigation position-relative text-right" role="navigation">
+              <ul class="site-menu main-menu site-menu-dark js-clone-nav mr-auto d-none d-lg-block m-0 p-0">
+                <li class="cta"><a href="about_us" class="nav-link"><span>Contact Us</span></a></li>
+              </ul>
+            </nav>
+            <a href="#" class="d-inline-block d-lg-none site-menu-toggle js-menu-toggle text-black float-right"><span class="icon-menu h3"></span></a>
+          </div>
+        </div>
+      </div>
+      
+    </header>
+
+    <div class="intro-section" id="home-section"> 
+      <div class="slide-1" style="background-image: url({% static 'images/hero_1.jpg'%});" data-stellar-background-ratio="0.5">
+                 
+
+
+    <div class="box">
+
+     
+    <h1 class="title" style="color :#03a9f4; ">{{result.1}} {{result.2}}</h1>
+         <div class="tabContainer">
+            <div class="buttonContainer">
+                <button onclick="showPanel(0,'#fff')">Home</button>
+                <button onclick="showPanel(1,'#fff')">Personal Info</button>
+                <button onclick="showPanel(2,'#fff')">Notifications</button>
+                <button onclick="showPanel(3,'#fff')">Semisters</button>
+                <button onclick="showPanel(4,'#fff')">Upload Files</button>
+            </div>
+      
+        <div class="tabPanel">
+            {% if profilepic %}
+            <img class='profile_pic' abbr="{{result.1}}" src="/media/images/{{result.0}}">
+            {% else %}
+            <img class='profile_pic' abbr="Default Profile Picture" src="/media/images/Default.png">
+            {% endif %}
+                <table class="home_info_table">
+
+            <tr><td colspan='2'><h4>{{result.1}} {{result.2}}</h4></td></tr>
+            <tr><td colspan='2'><h4>{{result.0}}</h4></td></tr>
+            <tr><td colspan='2'><h4>{{result.3}}</h4></td></tr>
+            <tr><td colspan='2'><h4>{{result.4}}</h4></td></tr>
+            <tr><td style="width:300px;" ><h4>{{class_name}}</h4></td><td style="width:300px;"><h4>{{result.5}}</h4></td></tr>
+
+                  </table>
+              <div style="color:#000; padding:40px; padding-top:150px; ">
+                {% for message in messages %}
+	            	  <div><b>{{message}}</b></div>
+	              {% endfor %}
+              </div>
+            <div class="my_tg_place">
+              <b>TG : {{my_tg}}</b>
+            </div>
+      </div>
+
+
+      <div class="tabPanel">
+        <form action='update_pinof' method='POST'>
+           {% csrf_token %}
+              <div style="align:center; color:#000; font-size:30px;"><b>Personal Information</b></div><br>
+            	<input type='text' name='enrollment' value="{{result.0}}" hidden>
+
+              <div  class="inputBox">
+              <input type='text' name='father_name' value="{{pinfo.1}}" required><br>
+              <label><b>Enter Father's Name</b></label>
+              </div>
+         
+              <div  class="inputBox">
+              <input type='text' name='father_phone' value="{{pinfo.2}}" required minlength='10' maxlength='10'><br>
+              <label><b>Father's Phone</b></label>
+              </div>
+            	
+              <div  class="inputBox">
+              <input type='text' name='mother_name' value="{{pinfo.3}}" required><br>
+              <label><b>Enter Mother's Name</b></label>
+              </div>
+            	
+              <div  class="inputBox">
+              <input type='text' name='per_addr' value="{{pinfo.4}}" required><br>
+              <label><b>Permanent Address</b></label>
+              </div>
+            	
+              <div  class="inputBox">
+              {% if pinfo.5 %}
+              <input type='text' name='local_addr' value="{{pinfo.5}}" required><br>
+              {% else %}
+              <input type='text' name='local_addr' required value="NONE (Default)"><br>
+              {% endif %}
+              <label><b>Communication Address (Optional)</b></label>
+              </div>
+            	
+              <div  class="inputBox">
+              {% if pinfo.6 %}
+              <input type='text' name='gaur_name' value="{{pinfo.6}}" required><br>
+              {% else %}
+              <input type='text' name='gaur_name' required value="NONE (Default)"><br>
+              {% endif %}
+              <label><b>Gaurdian Name (Optional)</b></label>
+              </div>
+            	
+              <div  class="inputBox">
+              {% if pinfo.7 %}
+              <input type='text' name='gaur_addr' value="{{pinfo.7}}" required><br>
+              {% else %}
+              <input type='text' name='gaur_addr' required value="NONE (Default)"><br>
+              {% endif %}
+              <label><b>Gaurdian Phone (Optional)</b></label>
+              </div>
+
+                {% if pinfo.1 %}
+                </form>
+                <form action='edit_pinfo' method='POST'>
+              {% csrf_token %}
+              <!--input class="pinfo_btn" type='submit' name='edit' value='Edit'-->
+                </form>
+                {% else %}
+              <input class="pinfo_btn" type='submit' name='submit' value='Submit'>
+              </form>
+           {% endif %}
+
+            
+    </div>
+    
+    
+    <div class="tabPanel">
+        {% if noti %}		
+          <br><br><br>
+          {% for no in noti %}
+            {% for n in no %}
+          	<div><h2>{{n}}</h2></div>
+            {% endfor %}
+          {% endfor %}<br>
+        {% else %}
+          <br><br><br>
+          <h2>No Notice Available yet!!</h2>
+        {% endif %}
+    </div>
+
+
+    <div class="tabPanel">
+        
+      {% if sems_info.0 %}
+
+          <div class="tabContainer1">
+              <div class="buttonContainer1">
+              {% for sem in sems_info.0 %}
+                  <button onclick="showPanel1({{sem.0}},'#eee')">Sem {{sem.1}}</button>
+              {% endfor %}
+              </div>
+              {% for se in sub_name  %}
+                    <div class="tabPanel1">
+
+                          <form action="sem_marks" method='POST'>
+                           {% csrf_token %}
+                          <table class="sems_tables">
+                          <tr class='sems_tables'><th>Subjects</th><th> Enter Marks </th></tr>
+                          
+                            {% for s in se.sub_name %}
+                              <tr><td>{{s.0}}</td><td><input type="number" minlength='2' maxlength='2' required name='sub_{{s.1}}'></td></tr>
+                            {% endfor %}
+                          </table>
+
+                              <input style="margin:30px;" type='submit' name='submit{{se.sem}}' value='Submit'>
+                              <input type='text' value='{{class_name}}' name='class_name' hidden>
+                              <input type='text' value='{{result.0}}' name='enroll' hidden>
+                              <input type='text' value='{{se.sem}}' name='semister' hidden>
+                          </form>
+
+                        </div>
+                        {% endfor %}
+                    </div>
+                  {% else %}
+                      <br><br><br>
+                        <h2>No Semister Available yet!!</h2>
+                  {% endif %}
+    </div>
+
+
+     <div class="tabPanel">
+          <form action='UploadImg' method='POST' enctype="multipart/form-data"><br>
+          <b style='color:#000;'>Upload Your Profile Picture</b><br>
+          {% csrf_token %}
+            <input  type='file' name='img' style="color:#000;">
+            <input type='submit' value='Submit'>
+          </form>
+     </div>
+
+    </div>
+
+   </div>
+  </div>
+  </div>
+  </div>
+  
+  <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+  <script src="{% static 'js/jquery-migrate-3.0.1.min.js' %}"></script>
+  <script src="{% static 'js/jquery-ui.js' %}"></script>
+  <script src="{% static 'js/popper.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+  <script src="{% static 'js/jquery.stellar.min.js' %}"></script>
+  <script src="{% static 'js/jquery.countdown.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap-datepicker.min.js' %}"></script>
+  <script src="{% static 'js/jquery.easing.1.3.js' %}"></script>
+  <script src="{% static 'js/aos.js' %}"></script>
+  <script src="{% static 'js/jquery.fancybox.min.js' %}"></script>
+  <script src="{% static 'js/jquery.sticky.js' %}"></script>
+
+  <script src="{% static 'js/main_page.js' %}"></script>
+      <script>showPanel(0,'#fff');</script>
+      <script>showPanel1(0,'#eee');</script>
+  <script src="{% static 'js/main.js' %}"></script>
+    
+  </body>
+</html>

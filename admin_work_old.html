@@ -1,0 +1,84 @@
+
+<title>{{user_info.name}}</title>
+
+{% if work_ == "add_tg" %}
+		
+		<form action='add_tg' method='POST'>
+		{% csrf_token %}
+		    {{name}}<br>
+				{% for message in messages %}
+					<div>{{message}}</div>
+				{% endfor %}
+			<input type='text' name='tg_username' required="" placeholder='Tg UserName'><br>
+			<input type='text' name='tg_first_name' required="" placeholder='First Name'><br>
+			<input type='text' name='tg_last_name' required="" placeholder='Last Name'><br>
+			<input type='email' name='tg_email' required="" placeholder='Email'><br>
+			Class Branch<br>
+			<input type="radio" name='class_branch' value='CSE'>CSE
+			<input type="radio" name='class_branch' value='ME'>ME
+			<input type="radio" name='class_branch' value='CE'>CE
+			<input type="radio" name='class_branch' value='EX'>EX 
+			<input type="radio" name='class_branch' value='EC'>EC<br>
+			Class Batch<br>
+			<input type="radio" name='class_batch' value='2015'>2015
+			<input type="radio" name='class_batch' value='2016'>2016
+			<input type="radio" name='class_batch' value='2017'>2017
+			<input type="radio" name='class_batch' value='2018'>2018
+			<input type="radio" name='class_batch' value='2019'>2019
+			<input type="radio" name='class_batch' value='2020'>2020<br>
+			Class Section<br>
+			<input type="radio" name='class_section' value='A'>A
+			<input type="radio" name='class_section' value='B'>B<br>
+
+			
+			<input type='password' name='passwd1' required="" placeholder='Password'><br>
+			<input type='password' name='passwd2' required="" placeholder='Password'><br>
+			<textarea rows="4" cols="40" name='tg_about' placeholder='About TG (optional)'></textarea><br>
+			
+			<input type='submit' name='submit' value='Register'>
+		</form>
+
+	{% elif work_ == "show_tg" %}
+	<table>
+	<td>TG Name</td><td>TG Class</td>
+		{{user_info.name}} Pannel<br>
+		{% for tg in all_tg %}
+
+			<tr><td>Prof. {{tg.first_name}} {{tg.last_name}}</td><td>{{tg.have_class}}</td></tr><br>
+
+		{% endfor %}
+	</table>
+
+	{% elif work_ == "show_stu" %}
+		Class : {{class_name}}
+		<table>
+		<tr>
+			<th>Enrollment</th>
+			<th>First Name</th>
+			<th>Last Name</th>
+			<th>Email</th>
+			<th>Phone</th>
+			<th>Gender</th>
+		</tr>
+		{% for students in all_students %}
+		<tr>
+			<td>{{students.0}}</td>
+			<td>{{students.1}}</td>
+			<td>{{students.2}}</td>
+			<td>{{students.3}}</td>
+			<td>{{students.4}}</td>
+			<td>{{students.5}}</td>
+		</tr>
+		{% endfor %}
+		</table>
+	{% elif work_ == "show_stu_cls" %}
+		<form action='show_stu' method='POST'>
+		{% csrf_token %}
+		Class<br>
+		{% for tg in all_tg %}
+		<input type='radio' name='to_class' value='{{tg.have_class}}'>{{tg.have_class}}<br>
+		{% endfor %}
+		<input type='submit' name='submit' value='Submit'>
+		</form>
+
+	{% endif %}

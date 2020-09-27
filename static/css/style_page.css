@@ -1,0 +1,209 @@
+body{
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  background-image: url('../images/hero_1.jpg');
+  background-size: cover;
+  background-color: #f5f5f5;
+
+}
+.box{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-42%);
+  width: 1800px;
+  height: 900px;
+  padding: 40px;
+  background-color: #d7d4d4 ;
+  box-sizing: border-box;
+
+}
+.box h2{
+  margin: 0 0 30px;
+  padding: 0;
+  color: #000;
+  text-align: center;
+
+}.box h4{
+  margin: 0 0 30px;
+  padding: 0;
+  color: #000;
+  text-align: center;
+}
+.box .inputBox{
+ position: relative;
+}
+.box .inputBox input{
+  width: 500px;
+  padding: 10px 0;
+  font-size: 16px;
+  letter-spacing: 1px;
+  color: #000;
+  margin-bottom: 20px;
+  border: none;
+  border-bottom: 1px solid #000;
+  outline: none;
+  background: transparent;
+}
+.box .inputBox label{
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-left:610px;
+  align: center;
+  padding: 10px 0;
+  font-size: 20px;
+  color: #000;
+  pointer-events: none;
+  transition: .5s;
+}
+.box .inputBox input:focus ~ label,
+.box .inputBox input:valid ~ label{
+  top: -20px;
+  left: 0;
+  color: #03a9f4;
+  font-size: 16px;
+}
+.pinfo_btn{
+ margin-top: -200px; 
+ margin-left: 370px;
+}
+.pinfo_btn:hover{
+background-color: #03a9f4;
+}
+.profile_pic{
+width:350px;
+height:350px;
+float:left;
+margin-left:100px;  
+margin-top:100px;  
+}
+
+.home_info_table{
+float: left;
+margin-top: 120px;
+margin-left: 160px;
+padding-left: 500px;
+align :left;
+font-size: 50%;
+}
+
+tr:hover {background-color: #f5f5f5;}
+
+.home_info_table td{
+float: left;
+align: left;
+width: 600px;
+text-align-last: left;
+font-size: 50%;
+}
+
+
+.my_tg_place{
+color:#000; 
+position: absolute;
+bottom: 60px;
+right: 60px;
+font-size: 20px;
+}
+
+
+
+
+.title{
+    font-family: sans-serif;
+    color: #03a9f4;
+    text-align: center;
+}
+.tabContainer{
+    width: 100%;
+    height: 800px;
+    color: #fff;
+}
+.tabContainer .buttonContainer{
+    height: 8%;
+}
+.tabContainer .buttonContainer button{
+    width: 20%;
+    height: 100%;
+    float: left;
+    border: none;
+    outline:none;
+    cursor: pointer;
+    padding: 10px;
+    font-family: sans-serif;
+    font-size: 20px;
+    background-color: #eee;
+}
+.tabContainer .buttonContainer button:hover{
+    background-color: #03a9f4;
+}
+.tabContainer .tabPanel{
+    height: 85%;
+    background-color: #fff;
+    color: #fff;
+    text-align: center;
+    padding-top: 10px;
+    box-sizing: border-box;
+    font-family: sans-serif;
+    font-size: 24px;
+    display: none;
+}
+
+
+.sems_tables{
+margin-left: 390px;
+color: #000;
+align-content: center;
+}
+
+.sems_tables td{
+width: 400px;
+}
+
+
+
+
+
+.title1{
+  font-family: sans-serif;
+  color: #dc2d5e;
+  text-align: center;
+}
+.tabContainer1{
+  width: 100%;
+  height: 670px;
+  margin-left : 35px;
+}
+.tabContainer1 .buttonContainer1{
+  height: 8%;
+}
+.tabContainer1 .buttonContainer1 button{
+  width: 12%;
+  height: 100%;
+  float: left;
+  border: none;
+  outline:none;
+  cursor: pointer;
+  padding: 10px;
+  font-family: sans-serif;
+  font-size: 18px;
+  background-color: #03a9f4;
+}
+.tabContainer1 .buttonContainer1 button:hover{
+  background-color: #f44336;
+}
+.tabContainer1 .tabPanel1{
+  height: 85%;
+  width: 96%;
+  background-color: gray;
+  color: #000;
+  text-align: center;
+  padding-top: 105px;
+  box-sizing: border-box;
+  font-family: sans-serif;
+  font-size: 22px;
+  display: none;
+}
+

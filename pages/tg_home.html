@@ -1,0 +1,451 @@
+{% load static %}
+<!DOCTYPE html>
+
+<style>
+.nav_btn{
+  background-color: rgba(0,0,0,0);
+  border:None;
+
+}
+
+.tg_table{
+    font-size: 28px;
+    color: #000;
+    width: 600px;
+    position: absolute;
+    right: 60px;    
+}
+
+.tg_table1{
+    font-size: 24px;
+    color: #000;
+    margin-left: 100px;
+    position: absolute;    
+}
+
+.tg_table1 th{
+padding-left: 50px;
+padding-right: 50px;
+align-content:left;
+}
+
+.tg_table1 td{
+    padding:5px;
+    left: 30px;
+}
+
+
+.tg_table1 th{
+  background-color: #03a9f4;
+}
+
+.tg_table td{
+    padding:5px;
+}
+
+
+
+
+</style>
+
+
+<head>
+  
+  <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Muli:300,400,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'fonts/icomoon/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/jquery-ui.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/jquery.fancybox.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-datepicker.css' %}">
+    <link rel="stylesheet" href="{% static 'fonts/flaticon/font/flaticon.css' %}">
+    <link rel="stylesheet" href="{% static 'css/aos.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style_page.css' %}">
+
+</head>
+<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
+  
+  <div class="site-wrap">
+
+    <div class="site-mobile-menu site-navbar-target">
+      <div class="site-mobile-menu-header">
+        <div class="site-mobile-menu-close mt-3">
+          <span class="icon-close2 js-menu-toggle"></span>
+        </div>
+      </div>
+      <div class="site-mobile-menu-body"></div>
+    </div>
+   
+    
+    </div>
+  {% if result %}
+    <title>TG {{result.have_class}}</title>
+  {% else %}
+    <title>Home Page</title>
+  {% endif %}
+    <header class="site-navbar py-4 js-sticky-header site-navbar-target" role="banner">
+      
+      <div class="container-fluid">
+        <div class="d-flex align-items-center">
+          <div class="site-logo mr-auto w-25"><a href="home">TG Diary</a></div>
+
+          <div class="mx-auto text-center">
+            <nav class="site-navigation position-relative text-right" role="navigation">
+              <ul class="site-menu main-menu js-clone-nav mx-auto d-none d-lg-block  m-0 p-0">
+                {% if result %}
+                <li style="padding-left:250px;"><a href="#home-section" class="nav-link">Prof. {{result.first_name}}</a></li>
+
+                   <li><a class="nav-link" href="add_sem">Add Semister</a></li>
+                   <li><a class="nav-link" href="del_sem">Delete Semister</a></li>    
+                   <li><form action="show_stu" method='POST'>{% csrf_token %}<input style="background: transparent; color:#fff; border: None;" type="submit" value="Show All Students"></li>
+                   <li><a class="nav-link" href="add_stu">Add Students</a></li>
+                   <li><a class="nav-link" href="search_stu">Search Student</a></li>
+                   <li><a class="nav-link" href="mid_sem">Mid Sem</a></li>
+               
+                <li><a href="logout" class="nav-link">Logout</a></li>
+                {% else %}
+
+                <li style="padding-left:250px;"><a href="#home-section" class="nav-link">Home</a></li>
+                <li><a href="about_us" class="nav-link">About</a></li>
+                {% endif %}
+              </ul>
+            </nav>
+          </div>
+
+          <div class="ml-auto w-25">
+            <nav class="site-navigation position-relative text-right" role="navigation">
+              <ul class="site-menu main-menu site-menu-dark js-clone-nav mr-auto d-none d-lg-block m-0 p-0">
+                <li class="cta"><a href="about_us" class="nav-link"><span>Contact Us</span></a></li>
+              </ul>
+            </nav>
+            <a href="#" class="d-inline-block d-lg-none site-menu-toggle js-menu-toggle text-black float-right"><span class="icon-menu h3"></span></a>
+          </div>
+        </div>
+      </div>
+      
+    </header>
+
+    <div class="intro-section" id="home-section"> 
+      <div class="slide-1" style="background-image: url({% static 'images/hero_1.jpg'%});" data-stellar-background-ratio="0.5">
+                 
+
+
+    <div class="box">
+
+     
+    <h1 class="title" style="color :#03a9f4; ">{{result.1}} {{result.2}}</h1>
+    <div class="tabContainer">
+    <div class="buttonContainer">
+
+        <button onclick="showPanel(0,'#fff')">Home</button>
+        <button onclick="showPanel(1,'#fff')">Requests</button>
+        <button onclick="showPanel(2,'#fff')"><a href="add_notification">Add Notification</a><br></button>
+        <button onclick="showPanel(3,'#fff')">Work</button>
+        <button onclick="showPanel(4,'#fff')">Upload Files</button>
+    </div>
+
+
+
+
+    <div class="tabPanel">
+    {% if profilepic %}
+    <img class='profile_pic' src="/media/images/{{result.tg_name}}">
+    {% else %}
+    <img class='profile_pic' abbr="Default Profile Picture" src="/media/images/Default.png">
+    {% endif %}
+        <table class="home_info_table">
+
+            <tr><td colspan='2'><h4>Prof. {{result.first_name}} {{result.last_name}}</h4></td></tr>
+            <tr><td  style="width:300px;"><h4>{{result.tg_name}}</h4></td><td style="width:300px;"><h4>{{result.have_class}}</h4></td></tr>
+            <tr><td  colspan='2'><h4>{{result.tg_email}}</h4></td></tr>
+            <tr><td><h4>{{result.description}}</h4></td></tr>
+        </table>
+      <div style="color:#000; padding:40px; padding-top:150px; position:absolute; right:80px; ">
+        {% for message in messages %}
+	    	  <div><b>{{message}}</b></div>
+	      {% endfor %}
+      </div>
+
+    </div>
+
+    <div class="tabPanel">
+      {% if registrations %}
+	        <br>
+          <div style='color:#000;'>Requests To Register</div><br>
+              {% for reg in registrations %}
+                <div>
+                  <table cellpadding='5px' align='center'>
+                    <div>
+	        	          <tr style='color:#000;'><td>Enrollment :</td><td>{{reg.0}}</td></tr>
+	        	          <tr style='color:#000;'><td>Full Name : </td><td>{{reg.1}} {{reg.2}}</td></tr>
+                    </div>
+                      <tr style='margin-left:-80px;'>
+                        <td>
+                          <form action='accept' method='POST'>
+	        			            {% csrf_token %}
+	        				          <input type='text' name='requested_stu' value="{{reg.0}}" hidden>
+	        				          <input type="submit" name='submit' value="Accept"><br>          
+	        		  	        </form>
+                        </td>
+                        <td>
+                          <form action='reject' method='POST'>
+	        			            {% csrf_token %}
+	        				          <input type='text' name='requested_stu' value="{{reg.0}}" hidden>
+	        				          <input type="submit" name='submit' value="Reject"><br>          
+	        		  	        </form>
+                        </td>
+                      </tr>
+                  </table>
+                </div>
+              {% endfor %}
+      {% else %}
+        <h1 style="color:#000;padding-top:100px;" >No Requests Found</h1>  
+      {% endif %}
+            
+    </div>
+
+    <div class="tabPanel"> 
+      <h2 style="clolr:#000;">Upload Notice</h2>
+        <form action='add_notification' method='POST'>
+    		{% csrf_token %}
+    			<textarea rows="4" cols="40" name='notification' placeholder='Write Notifictions'></textarea><br>
+    			<input type='submit' name='submit' value='Publish'>
+    		</form>
+        <br>
+      <h2 style="clolr:#000;">Send Mails</h2>
+        <form action='sendMessage' method='POST'>
+    		{% csrf_token %}
+    			<textarea rows="4" cols="40" name='notification' placeholder='Compose Your Mail (without wishing and Regards)'></textarea><br>
+    			<input type='submit' name='submit' value='Broadcast'>
+    		</form>
+
+    </div>
+    
+  
+    <div class="tabPanel">
+    {% if work_ == "add_sem" %}
+      <script>showPanel(2,'#fff');</script>
+        	{% for message in messages %}
+        		<div>{{message}}</div>
+        	{% endfor %}
+        	Welcome {{result.tg_name}} <br>Create Class Semister<br>
+        	<form action='add_sem' method='POST'>
+        		{% csrf_token %}
+        		<select name="semister">
+            <br><br>
+                    <option disabled="disabled" selected="selected">Available Semister</option>
+        			{% for ss in sem_next %}
+        				<option value='{{ss}}'>{{ss}}</option>		
+        	    	{% endfor %}
+        		</select><br><br>
+        		<input type='text' name='class_name' value="{{result.have_class}}" hidden>
+        		<textarea rows="4" cols="40" name='subjects' placeholder='Classes : Eg ->  Maths,DBMS,OS,Data_Structure,etc  (Comma Serated Values and Ensure not to add space in between subjects name)'></textarea><br>
+          	<input type="submit" value='Create' name='submit'>
+          </form>
+            
+    {% elif work_ == "del_sem" %}
+      <script>showPanel(2,'#fff');</script>
+            	{% for message in messages %}
+            		<div>{{message}}</div>
+            	{% endfor %}
+            
+            	Welcome {{result.tg_name}} <br>Delete Class Semister<br>
+            	<form action='del_sem' method='POST'>
+            		{% csrf_token %}
+            		<select name="semister">
+                        <option disabled="disabled" selected="selected">Available Semister</option>
+            			{% for i in sem_exist %}
+            				<option value='{{i}}'>{{i}}</option>
+            			{% endfor %}		
+            	    </select><br>
+            		<input type='text' name='class_name' value="{{result.have_class}}" hidden><br>
+            		<input type="submit" value='Delete' name='submit'>
+            
+            
+    {% elif work_ == "add_stu" %}
+            
+            	{% for message in messages %}
+            		<div>{{message}}</div>
+            	{% endfor %}
+
+              <br><br>
+                <a href='/media/SampleStudentUplodFile.xlsx' style="color:#000;">Sample file</a><br>
+                <br><h2 style='color : #000;'>Upload File to Add Students in Your Class : </h2><br>
+                <form action="add_stu" method='POST' enctype="multipart/form-data">
+                
+                {% csrf_token %}
+                    <input type="file" name='file_stu' style="color:#000;" >
+                    <input type="submit" value='Submit' name='submit'>
+                
+                </form> 
+    {% elif work_ == "search_" %}
+                
+                <br><br><br>
+                <div style="color:#000;">
+                Search Student :<br>
+                <form action='search_stu' method='POST'>
+                    {% csrf_token %}
+                    <div class="inputBox">
+                    <input type='text' name='search' placeholder="Enter Enrollment">
+                    </div>
+                    <input type='submit' nmae='submit' value='Search'>
+                </form>
+                </div>
+
+    {% elif work_ == "search_done" %}
+                
+                <div style="color:#000;">
+                  {% if 0 == search_res.0 %}
+                  <div> Nothing found</div>
+                  {% else %}
+                  <div>
+            	    	<table style='font-size:12; margin-left:360px;' border=1px;>
+            	    	<tr>
+            	    		<th>Enrollment</th>
+            	    		<th>First Name</th>
+            	    		<th>Last Name</th>
+            	    		<th>Email</th>
+            	    		<th>Phone</th>
+            	    		<th>Gender</th>
+            	    	</tr>
+            	    	<tr>
+            	    		<td>{{search_res.0.0}}</td>
+            	    		<td>{{search_res.0.1}}</td>
+            	    		<td>{{search_res.0.2}}</td>
+            	    		<td>{{search_res.0.3}}</td>
+            	    		<td>{{search_res.0.4}}</td>
+            	    		<td>{{search_res.0.5}}</td>
+            	    	</tr>
+            	    	</table>
+                  
+                  </div>
+                  <br>
+                  <div>
+                  {% if search_res.1 == 0 %}
+                    Nothing Found as personal info
+                  {% else %}
+            	    	<table style='font-size:12; margin-left:40px;' border=1px;>
+                      <tr>
+            	    	  	<th>Father's Name</th>
+            	    	  	<th>Mother's Name</th>
+            	    	  	<th>Father's Phone</th>
+            	    	  	<th>Permanent Address</th>
+            	    	  	<th>Local Address</th>
+            	    	  	<th>Gaurdian Name</th>
+            	    	  	<th>Gaurdian Phone</th>
+            	    	  </tr>
+            	    	  <tr>
+            	    	  	<td>{{search_res.1.1}}</td>
+            	    	  	<td>{{search_res.1.3}}</td>
+            	    	  	<td>{{search_res.1.2}}</td>
+            	    	  	<td>{{search_res.1.4}}</td>
+            	    	  	<td>{{search_res.1.5}}</td>
+            	    	  	<td>{{search_res.1.6}}</td>
+            	    	  	<td>{{search_res.1.7}}</td>
+            	    	  </tr>
+                    </table>
+                    {% endif %}
+                  </div>
+                    {% for res_sem in search_res.2 %}
+                      <br>
+                      <div style="align-content:center;">  
+                        <table style='font-size:12; margin-left:40px;' border=1px;>
+                          <tr>
+                            {% for sem_data in res_sem %}
+                  	    	          	<th style="padding:25px;">{{sem_data.0}}</th>
+                            {% endfor %} 
+                          </tr>
+                          <tr>
+                            {% for sem_data in res_sem %}
+                  	    	          	<td>{{sem_data.1}}</td>
+                            {% endfor %}    
+                          </tr>
+                        </table>
+                    {% endfor %}
+                  {% endif %}
+                </div>
+            
+    {% elif work_ == "mid_sem" %}
+            
+            <br><br>
+                <a href='/media/SampleMidSemFile.xlsx' style="color:#000;">Sample file</a><br>
+                <br><h2 style='color : #000;'>Upload File to Send Mid Sem Marks in Your Class : </h2><br>                 
+                <form action="mid_sem" method='POST' enctype="multipart/form-data">
+            
+                {% csrf_token %}
+                    <input type="file" name='mid_sem_file' style="color:#000;" >
+                    <input type="submit" value='Submit' name='submit'>
+                
+                </form> 
+            
+    {% elif work_ == "show_stu" %}
+            
+               Class : {{result.have_class}}
+            		<table class='tg_table1'>
+            		<tr>
+            			<th>Enrollment</th>
+            			<th>First Name</th>
+            			<th>Last Name</th>
+            			<th>Email</th>
+            			<th>Phone</th>
+            			<th>Gender</th>
+            		</tr>
+            		{% for stu in stus %}
+            		<tr>
+            			<td>{{stu.0}}</td>
+            			<td>{{stu.1}}</td>
+            			<td>{{stu.2}}</td>
+            			<td>{{stu.3}}</td>
+            			<td>{{stu.4}}</td>
+            			<td>{{stu.5}}</td>
+            		</tr>
+            		{% endfor %}
+            		</table>
+  
+      {% else %}
+        <h1 style="color:#000;padding-top:100px;" >No Work Request yet</h1> 
+
+            
+    {% endif %}
+  
+
+    </div>
+
+    <div class="tabPanel">
+    <form action='UploadImgtg' method='POST' enctype="multipart/form-data"><br>
+    <b style='color:#000;'>Upload Your Profile Picture</b><br>
+    {% csrf_token %}
+      <input type='file' name='img' style="color:#000;">
+      <input type='submit' value='Submit'>
+    </form>
+    </div>
+    </div>
+
+      </div>
+
+      </div>
+    </div>
+  <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+  <script src="{% static 'js/jquery-migrate-3.0.1.min.js' %}"></script>
+  <script src="{% static 'js/jquery-ui.js' %}"></script>
+  <script src="{% static 'js/popper.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+  <script src="{% static 'js/jquery.stellar.min.js' %}"></script>
+  <script src="{% static 'js/jquery.countdown.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap-datepicker.min.js' %}"></script>
+  <script src="{% static 'js/jquery.easing.1.3.js' %}"></script>
+  <script src="{% static 'js/aos.js' %}"></script>
+  <script src="{% static 'js/jquery.fancybox.min.js' %}"></script>
+  <script src="{% static 'js/jquery.sticky.js' %}"></script>
+  <script src="{% static 'js/main.js' %}"></script>
+  <script src="{% static 'js/main_page.js' %}"></script>
+  <script>showPanel(0,'#fff');</script>
+    
+  </body>
+</html>

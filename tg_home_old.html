@@ -1,0 +1,144 @@
+
+<title>TG Home</title>
+
+{% if work_ == "home" %}
+
+Welcome<br>
+
+Prof. {{result.first_name}} {{result.last_name}} {{result.have_class}}<br>
+    
+    {% for message in messages %}
+		<div>{{message}}</div>
+	{% endfor %}
+
+
+    {% if registrations %}
+	<br>
+	<br>
+    Requests To Register : <br>
+        {% for reg in registrations %}
+		<br>
+		Enrollment : {{reg.0}}<br>
+		Full Name : {{reg.1}} {{reg.2}}<br>
+                <form action="accept" method='POST'>
+				{% csrf_token %}
+					<input type='text' name='requested_stu' value="{{reg.0}}" hidden>
+					<input type="submit" name='submit' value="accept"><br>          
+				</form>
+		<br>
+       {% endfor %}
+    {% endif %}
+    <br><br>
+    <a href="add_sem">Add Semister</a><br>
+    <a href="del_sem">Delete Semister</a><br>
+    <form action="show_stu" method='POST'>{% csrf_token %}<input type="submit" value="Show All Students"><br>
+    <a href="add_notification">Add Notification</a><br>
+    <a href="add_stu">Add Students</a><br>
+    <a href="mid_sem">Mid Sem</a><br>
+    <a href="logout">Logout</a><br>
+		
+
+{% elif work_ == "add_sem" %}
+	{% for message in messages %}
+		<div>{{message}}</div>
+	{% endfor %}
+	Welcome {{result.tg_name}} <br>Create Class Semister<br>
+	<form action='add_sem' method='POST'>
+		{% csrf_token %}
+		<select name="semister" class="form-control">
+            <option disabled="disabled" selected="selected">Available Semister</option>
+			{% for ss in sem_next %}
+				<option value='{{ss}}'>{{ss}}</option>		
+	    	{% endfor %}
+		</select><br>
+		<input type='text' name='class_name' value="{{result.have_class}}" hidden>
+		<textarea rows="4" cols="40" name='subjects' placeholder='Classes : Eg ->  Maths,DBMS,OS,Data_Structure,etc  (Comma Serated Values and Ensure not to add space in between subjects name)'></textarea><br>
+		<input type="submit" value='Create' name='submit'>
+	</form>
+
+{% elif work_ == "del_sem" %}
+	{% for message in messages %}
+		<div>{{message}}</div>
+	{% endfor %}
+	
+	Welcome {{result.tg_name}} <br>Delete Class Semister<br>
+	<form action='del_sem' method='POST'>
+		{% csrf_token %}
+		<select name="semister" class="form-control">
+            <option disabled="disabled" selected="selected">Available Semister</option>
+			{% for i in sem_exist %}
+				<option value='{{i}}'>{{i}}</option>
+			{% endfor %}		
+	    </select><br>
+		<input type='text' name='class_name' value="{{result.have_class}}" hidden>
+		<input type="submit" value='Delete' name='submit'>
+	
+
+{% elif work_ == "add_stu" %}
+
+	{% for message in messages %}
+		<div>{{message}}</div>
+	{% endfor %}
+    <a href='/media/SampleStudentUplodFile.xlsx'>Sample file</a>
+
+    <form action="add_stu" method='POST' enctype="multipart/form-data">
+    
+    {% csrf_token %}
+        <input type="file" name='file_stu' ><br>
+        <input type="submit" value='Submit' name='submit'>
+    
+    </form> 
+
+{% elif work_ == "mid_sem" %}
+
+	{% for message in messages %}
+		<div>{{message}}</div>
+	{% endfor %}
+    <a href='/media/SampleMidSemFile.xlsx'>Sample file</a>
+
+    <form action="mid_sem" method='POST' enctype="multipart/form-data">
+
+    {% csrf_token %}
+        <input type="file" name='mid_sem_file' ><br>
+        <input type="submit" value='Submit' name='submit'>
+    
+    </form> 
+
+{% elif work_ == "show_stu" %}
+
+   Class : {{result.have_class}}
+		<table>
+		<tr>
+			<th>Enrollment</th>
+			<th>First Name</th>
+			<th>Last Name</th>
+			<th>Email</th>
+			<th>Phone</th>
+			<th>Gender</th>
+		</tr>
+		{% for stu in stus %}
+		<tr>
+			<td>{{stu.0}}</td>
+			<td>{{stu.1}}</td>
+			<td>{{stu.2}}</td>
+			<td>{{stu.3}}</td>
+			<td>{{stu.4}}</td>
+			<td>{{stu.5}}</td>
+		</tr>
+		{% endfor %}
+		</table>
+
+{% elif work_ == "add_notification" %}
+
+    {% for message in messages %}
+		<div>{{message}}</div>
+	{% endfor %}
+
+    <form action='add_notification' method='POST'>
+		{% csrf_token %}
+			<textarea rows="4" cols="40" name='notification' placeholder='Write Notifictions'></textarea><br>
+			<input type='submit' name='submit' value='Publish'>
+		</form>
+
+
+{% endif %}

@@ -1,0 +1,43 @@
+<title>Student Home</title>
+
+{% if noti %}		
+Notices : <br>
+{% for n in noti %}
+	<div>{{n}}</div>
+{% endfor %}<br>
+{% endif %}
+
+{{class_name}}
+<h1>{{result.0}}</h1>
+<h1>{{result.1}}</h1>
+<h1>{{result.2}}</h1>
+<h1>{{result.3}}</h1>
+<h1>{{result.4}}</h1>
+<h1>{{result.5}}</h1>
+
+<br>
+
+Personal Info <br>
+<form action='update pinof' method='POST'>
+
+	<input hidden>
+	<input type='text' name='enrollment' value="{{result.0}}" disabled ><br>
+	<input type='text' name='' placeholder="Enter Father's Name"><br>
+	<input type='text' name='' placeholder="Father's Phone"><br>
+	<input type='text' name='' placeholder="Enter Mother's Name"><br>
+	<input type='text' name='' placeholder="Permanent Address"><br>
+	<input type='text' name='' placeholder="Communication Address (Optional)"><br>
+	<input type='text' name='' placeholder="Gaurdian Name (Optional)"><br>
+	<input type='text' name='' placeholder="Gaurdian Phone (Optional)"><br>
+	<input type='submit' name='submit' value='Submit'>
+
+</form>
+
+{% if all_sem_info %}
+	{% for sem in all_sem_info %}
+	
+	
+	{% endfor %}
+{% endif %}
+
+
